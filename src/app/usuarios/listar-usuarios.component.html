@@ -1,36 +1,79 @@
-<div class="usuarios-lista">
-  <h2>Usuarios de GitHub</h2>
-  <div *ngIf="usuarios$ | async as usuarios; else cargando">
-    <div class="tabla-usuarios-wrapper">
-      <table class="tabla-usuarios" aria-label="Lista de usuarios de GitHub">
-        <thead>
-          <tr>
-            <th scope="col">Nombre</th>
-            <th scope="col">Usuario</th>
-            <th scope="col">Email</th>
-            <th scope="col">Rol</th>
-            <th scope="col">Ubicación</th>
-            <th scope="col">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let usuario of usuarios">
-            <td>{{usuario.name}}</td>
-            <td>{{usuario.username}}</td>
-            <td>{{usuario.email}}</td>
-            <td>{{usuario.role}}</td>
-            <td>{{usuario.location}}</td>
-            <td>
-              <button type="button" class="detalle-btn" aria-label="Ver detalle de {{usuario.name}}" disabled>
-                Detalle
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+<section class="usuarios-page">
+  <div *ngIf="selectedUsuario; else listaTpl" class="detalle-wrapper">
+    <button type="button" class="btn btn-secondary back-btn" (click)="seleccionarUsuario(null)">
+      <i class="icon icon-arrow-left" aria-hidden="true"></i>
+      Volver a la lista
+    </button>
+    <app-detalle-usuario [usuario]="selectedUsuario"></app-detalle-usuario>
   </div>
-  <ng-template #cargando>
-    <p>Cargando usuarios...</p>
+
+  <ng-template #listaTpl>
+    <header class="page-header">
+      <div class="page-title-row">
+        <h1 class="page-title">
+          <i class="icon icon-people title-icon" aria-hidden="true"></i>
+          Usuarios de GitHub
+        </h1>
+        <span class="counter-badge" *ngIf="usuarios$ | async as u">{{ u.length }} usuarios</span>
+      </div>
+      <p class="page-subtitle">Explora los usuarios disponibles. Haz click en una tarjeta para ver el detalle completo del perfil.</p>
+    </header>
+
+    <div *ngIf="usuarios$ | async as usuarios; else cargando" class="users-grid">
+      <article
+        *ngFor="let usuario of usuarios"
+        class="user-card"
+        tabindex="0"
+        role="button"
+        (click)="seleccionarUsuario(usuario)"
+        (keyup.enter)="seleccionarUsuario(usuario)"
+        [attr.aria-label]="'Ver detalle de ' + usuario.name">
+        <div class="user-card-top">
+          <img
+            [src]="usuario.avatarUrl"
+            [alt]="'Avatar de ' + usuario.name"
+            class="user-avatar"
+            width="64"
+            height="64"
+            loading="lazy" />
+          <div class="user-headline">
+            <h3 class="user-name">{{ usuario.name }}</h3>
+            <span class="user-username">{{ '@' + usuario.username }}</span>
+          </div>
+        </div>
+
+        <div class="user-meta">
+          <span class="role-badge" [attr.data-role]="usuario.role">
+            <i class="icon icon-bookmark" aria-hidden="true"></i>
+            {{ usuario.role }}
+          </span>
+          <span class="meta-item" *ngIf="usuario.location">
+            <i class="icon icon-location" aria-hidden="true"></i>
+            {{ usuario.location }}
+          </span>
+        </div>
+
+        <div class="user-card-footer">
+          <span class="repo-pill">
+            <i class="icon icon-repo" aria-hidden="true"></i>
+            {{ usuario.repoIds.length }} repos
+          </span>
+          <span class="email-snippet" [title]="usuario.email">{{ usuario.email }}</span>
+        </div>
+
+        <button type="button" class="btn btn-primary card-cta" (click)="seleccionarUsuario(usuario); $event.stopPropagation()">
+          Ver perfil
+          <i class="icon icon-arrow-right" aria-hidden="true"></i>
+        </button>
+      </article>
+    </div>
   </ng-template>
-</div>
+
+  <ng-template #cargando>
+    <div class="loading-state">
+      <div class="skeleton-grid">
+        <div class="skeleton-card" *ngFor="let i of [1,2,3,4,5,6]"></div>
+      </div>
+    </div>
+  </ng-template>
+</section>

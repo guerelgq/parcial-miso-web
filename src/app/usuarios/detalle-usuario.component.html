@@ -1,0 +1,82 @@
+<article class="profile" *ngIf="usuario; else vacio">
+  <aside class="profile-sidebar">
+    <img
+      class="profile-avatar"
+      [src]="usuario.avatarUrl"
+      [alt]="'Avatar de ' + usuario.name"
+      width="260"
+      height="260" />
+
+    <h2 class="profile-name">{{ usuario.name }}</h2>
+    <p class="profile-username">{{ usuario.username }}</p>
+
+    <span class="role-pill" [attr.data-role]="usuario.role">
+      <i class="icon icon-bookmark" aria-hidden="true"></i>
+      {{ usuario.role }}
+    </span>
+  </aside>
+
+  <section class="profile-main">
+    <div class="info-card">
+      <div class="info-card-header">
+        <i class="icon icon-info" aria-hidden="true"></i>
+        <h3>Información del usuario</h3>
+      </div>
+
+      <ul class="info-list">
+        <li>
+          <span class="info-key">Nombre</span>
+          <span class="info-value">{{ usuario.name }}</span>
+        </li>
+        <li>
+          <span class="info-key">Usuario</span>
+          <span class="info-value mono">{{ '@' + usuario.username }}</span>
+        </li>
+        <li>
+          <span class="info-key">Email</span>
+          <span class="info-value">
+            <a [href]="'mailto:' + usuario.email">{{ usuario.email }}</a>
+          </span>
+        </li>
+        <li>
+          <span class="info-key">Rol</span>
+          <span class="info-value">{{ usuario.role }}</span>
+        </li>
+        <li>
+          <span class="info-key">Ubicación</span>
+          <span class="info-value">
+            <i class="icon icon-location inline-icon" aria-hidden="true"></i>
+            {{ usuario.location }}
+          </span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="repos-card">
+      <div class="repos-header">
+        <h3>
+          <i class="icon icon-repo" aria-hidden="true"></i>
+          Repositorios
+        </h3>
+        <span class="counter-badge">{{ usuario.repoIds.length }}</span>
+      </div>
+
+      <div class="repos-grid" *ngIf="usuario.repoIds.length > 0; else sinRepos">
+        <div class="repo-tile" *ngFor="let id of usuario.repoIds">
+          <i class="icon icon-repo repo-tile-icon" aria-hidden="true"></i>
+          <span class="repo-tile-id">#{{ id }}</span>
+        </div>
+      </div>
+
+      <ng-template #sinRepos>
+        <p class="empty-text">Este usuario no tiene repositorios asociados.</p>
+      </ng-template>
+    </div>
+  </section>
+</article>
+
+<ng-template #vacio>
+  <div class="empty-state">
+    <p>Selecciona un usuario para ver el detalle.</p>
+  </div>
+</ng-template>
