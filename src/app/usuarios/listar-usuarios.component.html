@@ -1,0 +1,36 @@
+<div class="usuarios-lista">
+  <h2>Usuarios de GitHub</h2>
+  <div *ngIf="usuarios$ | async as usuarios; else cargando">
+    <div class="tabla-usuarios-wrapper">
+      <table class="tabla-usuarios" aria-label="Lista de usuarios de GitHub">
+        <thead>
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Usuario</th>
+            <th scope="col">Email</th>
+            <th scope="col">Rol</th>
+            <th scope="col">Ubicación</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let usuario of usuarios">
+            <td>{{usuario.name}}</td>
+            <td>{{usuario.username}}</td>
+            <td>{{usuario.email}}</td>
+            <td>{{usuario.role}}</td>
+            <td>{{usuario.location}}</td>
+            <td>
+              <button type="button" class="detalle-btn" aria-label="Ver detalle de {{usuario.name}}" disabled>
+                Detalle
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <ng-template #cargando>
+    <p>Cargando usuarios...</p>
+  </ng-template>
+</div>
