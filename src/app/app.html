@@ -1,12 +1,34 @@
 <header class="app-header">
   <div class="header-inner">
     <div class="header-brand">
-      <span class="brand-app">Usuarios</span>
-    </div>  
+      <span class="brand-app">Parcial MISO</span>
+    </div>
+    <nav class="header-tabs" role="tablist" aria-label="Secciones">
+      <button
+        type="button"
+        role="tab"
+        class="tab"
+        [class.active]="activeTab === 'usuarios'"
+        [attr.aria-selected]="activeTab === 'usuarios'"
+        (click)="setTab('usuarios')">
+        <i class="icon icon-people" aria-hidden="true"></i>
+        <span>Usuarios</span>
+      </button>
+      <button
+        type="button"
+        role="tab"
+        class="tab"
+        [class.active]="activeTab === 'repositorios'"
+        [attr.aria-selected]="activeTab === 'repositorios'"
+        (click)="setTab('repositorios')">
+        <i class="icon icon-repo" aria-hidden="true"></i>
+        <span>Repositorios</span>
+      </button>
+    </nav>
   </div>
 </header>
 
 <main class="main">
-  <app-listar-usuarios></app-listar-usuarios>
+  <app-listar-usuarios *ngIf="activeTab === 'usuarios'"></app-listar-usuarios>
+  <app-listar-repositorios *ngIf="activeTab === 'repositorios'"></app-listar-repositorios>
 </main>
-

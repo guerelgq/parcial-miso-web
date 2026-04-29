@@ -111,3 +111,5 @@ button {
 .icon-location    { --icon-url: url('/icons/location.svg'); }
 .icon-repo        { --icon-url: url('/icons/repo.svg'); }
 .icon-info        { --icon-url: url('/icons/info.svg'); }
+.icon-star        { --icon-url: url('/icons/star.svg'); }
+.icon-calendar    { --icon-url: url('/icons/calendar.svg'); }

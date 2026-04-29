@@ -1,4 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
+
+type Tab = 'usuarios' | 'repositorios';
 
 @Component({
   selector: 'app-root',
@@ -7,5 +9,9 @@ import { Component, signal } from '@angular/core';
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('parcialmiso');
+  activeTab: Tab = 'usuarios';
+
+  setTab(tab: Tab): void {
+    this.activeTab = tab;
+  }
 }

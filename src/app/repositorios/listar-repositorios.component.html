@@ -1,0 +1,44 @@
+<section class="repos-page">
+  <header class="page-header">
+    <div class="page-title-row">
+      <h1 class="page-title">
+        <i class="icon icon-repo title-icon" aria-hidden="true"></i>
+        Repositorios
+      </h1>
+      <span class="counter-badge" *ngIf="repositorios$ | async as r">{{ r.length }} repositorios</span>
+    </div>
+    <p class="page-subtitle">Lista de repositorios disponibles. Haz click en una tarjeta para ver el detalle del repositorio.</p>
+  </header>
+
+  <div *ngIf="repositorios$ | async as repositorios; else cargando" class="repos-grid">
+    <article *ngFor="let repo of repositorios" class="repo-card">
+      <div class="repo-card-header">
+        <i class="icon icon-repo repo-card-icon" aria-hidden="true"></i>
+        <h3 class="repo-card-name">{{ repo.name }}</h3>
+      </div>
+
+      <p class="repo-card-description">{{ repo.description }}</p>
+
+      <div class="repo-card-footer">
+        <span class="footer-tag" *ngIf="repo.language">
+          <span class="language-dot" [attr.data-language]="repo.language"></span>
+          {{ repo.language }}
+        </span>
+        <span class="footer-tag">
+          <i class="icon icon-star" aria-hidden="true"></i>
+          {{ repo.stars }}
+        </span>
+        <span class="footer-tag">
+          <i class="icon icon-calendar" aria-hidden="true"></i>
+          {{ repo.createdAt }}
+        </span>
+      </div>
+    </article>
+  </div>
+
+  <ng-template #cargando>
+    <div class="skeleton-grid">
+      <div class="skeleton-card" *ngFor="let i of [1,2,3,4,5,6]"></div>
+    </div>
+  </ng-template>
+</section>
