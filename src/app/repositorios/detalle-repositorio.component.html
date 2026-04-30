@@ -1,0 +1,70 @@
+<a [routerLink]="['/']" class="btn btn-secondary back-btn">
+  <i class="icon icon-arrow-left" aria-hidden="true"></i>
+  Volver a repositorios
+</a>
+
+<ng-container *ngIf="state$ | async as state">
+  <div *ngIf="state.loading" class="empty-state">
+    <p>Cargando repositorio…</p>
+  </div>
+
+  <div *ngIf="!state.loading && !state.repo" class="empty-state">
+    <p>No se encontró el repositorio solicitado.</p>
+  </div>
+
+  <article *ngIf="state.repo as repo" class="repo-detail">
+    <div class="hero-card">
+      <div class="hero-top">
+        <i class="icon icon-repo hero-icon" aria-hidden="true"></i>
+        <h1 class="hero-name">{{ repo.name }}</h1>
+      </div>
+
+      <p class="hero-description" *ngIf="repo.description">{{ repo.description }}</p>
+
+      <div class="hero-meta">
+        <span class="meta-pill" *ngIf="repo.language">
+          <span class="language-dot" [attr.data-language]="repo.language"></span>
+          {{ repo.language }}
+        </span>
+        <span class="meta-pill">
+          <i class="icon icon-star" aria-hidden="true"></i>
+          {{ repo.stars }} stars
+        </span>
+        <span class="meta-pill">
+          <i class="icon icon-calendar" aria-hidden="true"></i>
+          Creado el {{ repo.createdAt }}
+        </span>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-header">
+        <i class="icon icon-info" aria-hidden="true"></i>
+        <h3>Información del repositorio</h3>
+      </div>
+
+      <ul class="info-list">
+        <li>
+          <span class="info-key">Nombre</span>
+          <span class="info-value mono">{{ repo.name }}</span>
+        </li>
+        <li>
+          <span class="info-key">Descripción</span>
+          <span class="info-value">{{ repo.description }}</span>
+        </li>
+        <li>
+          <span class="info-key">Lenguaje</span>
+          <span class="info-value">{{ repo.language }}</span>
+        </li>
+        <li>
+          <span class="info-key">Stars</span>
+          <span class="info-value">{{ repo.stars }}</span>
+        </li>
+        <li>
+          <span class="info-key">Fecha de creación</span>
+          <span class="info-value">{{ repo.createdAt }}</span>
+        </li>
+      </ul>
+    </div>
+  </article>
+</ng-container>

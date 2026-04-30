@@ -29,6 +29,9 @@
 </header>
 
 <main class="main">
-  <app-listar-usuarios *ngIf="activeTab === 'usuarios'"></app-listar-usuarios>
-  <app-listar-repositorios *ngIf="activeTab === 'repositorios'"></app-listar-repositorios>
+  <ng-container *ngIf="!isDetail">
+    <app-listar-usuarios *ngIf="activeTab === 'usuarios'"></app-listar-usuarios>
+    <app-listar-repositorios *ngIf="activeTab === 'repositorios'"></app-listar-repositorios>
+  </ng-container>
+  <router-outlet></router-outlet>
 </main>

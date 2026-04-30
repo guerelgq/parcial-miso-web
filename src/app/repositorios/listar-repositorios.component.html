@@ -11,7 +11,11 @@
   </header>
 
   <div *ngIf="repositorios$ | async as repositorios; else cargando" class="repos-grid">
-    <article *ngFor="let repo of repositorios" class="repo-card">
+    <a
+      *ngFor="let repo of repositorios"
+      class="repo-card"
+      [routerLink]="['/repositorios', repo.id]"
+      [attr.aria-label]="'Ver detalle de ' + repo.name">
       <div class="repo-card-header">
         <i class="icon icon-repo repo-card-icon" aria-hidden="true"></i>
         <h3 class="repo-card-name">{{ repo.name }}</h3>
@@ -33,7 +37,7 @@
           {{ repo.createdAt }}
         </span>
       </div>
-    </article>
+    </a>
   </div>
 
   <ng-template #cargando>

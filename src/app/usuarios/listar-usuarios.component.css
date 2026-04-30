@@ -226,53 +226,6 @@
   text-align: right;
 }
 
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 6px 14px;
-  font-size: 13px;
-  font-weight: 600;
-  font-family: inherit;
-  border-radius: var(--gh-radius);
-  border: 1px solid transparent;
-  cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
-  user-select: none;
-}
-
-.btn .icon {
-  width: 14px;
-  height: 14px;
-}
-
-.btn:active {
-  transform: translateY(1px);
-}
-
-.btn-primary {
-  background: linear-gradient(180deg, #2ea043 0%, #2da34a 100%);
-  color: #fff;
-  border-color: rgba(240, 246, 252, 0.1);
-  box-shadow: 0 1px 0 rgba(27, 31, 36, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.03);
-}
-
-.btn-primary:hover {
-  background: linear-gradient(180deg, #2c974b 0%, #298239 100%);
-}
-
-.btn-secondary {
-  background: var(--gh-surface);
-  color: var(--gh-fg-default);
-  border-color: var(--gh-border);
-}
-
-.btn-secondary:hover {
-  background: var(--gh-surface-hover);
-  border-color: var(--gh-fg-subtle);
-}
-
 .card-cta {
   width: 100%;
   margin-top: 4px;
